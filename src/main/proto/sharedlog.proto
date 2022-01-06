@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "github.com/hyperledger/fabric/protos/peer";
+option java_package = "fabric.protos.corfu";
+
+package peer;
+
+message Req_JoinChain {
+  string chainId = 1;
+  string peerName = 2;
+}
+
+message Res_JoinChain {
+  bool success = 3;
+}
+
+message Req_Next {
+  string chainId = 4;
+  string peerName = 5;
+  uint64 blockNum = 6;
+}
+
+message Res_Next {
+  bytes proposalResponse = 7;
+  bool success = 9;
+}
+
+service SharedLogConnect {
+  rpc joinChain (Req_JoinChain) returns (Res_JoinChain) {}
+  rpc next (Req_Next) returns (Res_Next) {}
+}
